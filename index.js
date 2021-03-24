@@ -9,6 +9,8 @@ app.use(express.urlencoded({extended: true}));
 
 app.use(cookieParser());
 
+let errors = [];
+
 app.set("view engine", "pug");
 
 
@@ -28,12 +30,12 @@ const users = [
 ];
 
 app.get('/create', csurfProtection, (req, res) => {
-  res.render('create', {csrfToken: req.csrfToken()});
+  res.render('create', {csrfToken: req.csrfToken(), errors});
 });
 
 app.post('/create', csurfProtection, (req, res) => {
-  const {firstName, lastName, email, password} = req.body;
-  let errors = [];
+  errors = [];
+  const {firstName, lastName, email, password, confirmedPassword} = req.body;
   if(!firstName) {
     errors.push("Please provide a first name.");
   }
@@ -47,10 +49,16 @@ app.post('/create', csurfProtection, (req, res) => {
     errors.push("Please provide a password.");
   }
 
+  if (password!==confirmedPassword) {
+    errors.push("The provided values for the password and password confirmation fields did not match.")
+  }
+
 if(errors.length > 0) {
-  res.render('create', {title: 'The following errors were found:', errors});
+  res.render('create', {errors, firstName, lastName, email});
   return;  
 }
+
+
 
   let newUser = {
     id: users.length + 1,

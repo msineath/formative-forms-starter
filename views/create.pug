@@ -1,18 +1,19 @@
 extends layout.pug 
-block content
- div 
-  ul 
+block content 
+ if errors
+  p='The following errors were found:'
+  ul
    each error in errors 
     li #{error}
  h2 Create User
  form(action='/create' method='post')
   input(type='hidden', name='_csrf', value=csrfToken)
   label(for='firstName')='First Name'
-  input(type='text', name='firstName', required)
+  input(type='text', name='firstName', value=firstName, required)
   label(for='lastName')='Last Name'
-  input(type='text', name='lastName', required)
+  input(type='text', name='lastName', value=lastName, required)
   label(for='email')='Email'
-  input(type='email', name='email', required)
+  input(type='email', name='email', value=email, required)
   label(for='password')='Password'
   input(type='password', name='password', required)
   label(for='confirmedPassword')='Confirm Password'
