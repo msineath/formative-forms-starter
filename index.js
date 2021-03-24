@@ -1,7 +1,10 @@
 const express = require("express");
-
+const csurf = require('csurf');
+const cookieParser = require('cookie-parser');
+const csurfProtection = csurf({cookie: true});
 const app = express();
 const port = process.env.PORT || 3000;
+app.use(cookieParser());
 
 app.set("view engine", "pug");
 
