@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
   res.render('index', {users});
 });
 
-
+const beatles = ['John', 'Paul', 'Ringo', 'George'];
 
 const users = [
   {
@@ -66,7 +66,7 @@ app.post('/create', csurfProtection, (req, res) => {
 })
 
 app.get('/create-interesting', csurfProtection, (req, res) => {
-  res.render('create-interesting', {csrfToken: req.csrfToken(), errors});
+  res.render('create-interesting', {csrfToken: req.csrfToken(), errors, beatles});
 });
 
 app.post('/create-interesting', csurfProtection, (req, res) => {
@@ -90,7 +90,7 @@ app.post('/create-interesting', csurfProtection, (req, res) => {
   if(!password) {
     errors.push("Please provide a password.");
   }
-  if (password!==confirmedPassword) {
+  if (password !== confirmedPassword) {
     errors.push("The provided values for the password and password confirmation fields did not match.")
   }
   if(age < 0 || age > 120) {
