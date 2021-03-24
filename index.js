@@ -18,8 +18,6 @@ app.get("/", (req, res) => {
   res.render('index', {users});
 });
 
-const beatles = ['John', 'Paul', 'Ringo', 'George'];
-
 const users = [
   {
     id: 1,
@@ -66,7 +64,7 @@ app.post('/create', csurfProtection, (req, res) => {
 })
 
 app.get('/create-interesting', csurfProtection, (req, res) => {
-  res.render('create-interesting', {csrfToken: req.csrfToken(), errors, beatles});
+  res.render('create-interesting', {csrfToken: req.csrfToken(), errors});
 });
 
 app.post('/create-interesting', csurfProtection, (req, res) => {
