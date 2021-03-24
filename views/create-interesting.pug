@@ -1,0 +1,32 @@
+extends layout.pug 
+block content 
+ if errors
+  p='The following errors were found:'
+  ul
+   each error in errors 
+    li #{error}
+ h2 Create Interesting User
+ form(action='/create-interesting' method='post')
+  input(type='hidden', name='_csrf', value=csrfToken)
+  label(for='firstName')='First Name'
+  input(type='text', name='firstName', value=firstName, required)
+  label(for='lastName')='Last Name'
+  input(type='text', name='lastName', value=lastName, required)
+  label(for='email')='Email'
+  input(type='email', name='email', value=email, required)
+  label(for='age')='Age'
+  input(type='number', name='age', value=age, required)
+  label(for='favoriteBeatle')='Favorite Beatle'
+  select(name='favoriteBeatle', value=favoriteBeatle, required)
+   option(value='0') --Please choose an option--
+   option(value="John")
+   option(value="Paul")
+   option(value="Ringo") 
+   option(value="George")
+   option(value="Scooby-Doo")   
+  label(for='password')='Password'
+  input(type='password', name='password', required)
+  label(for='confirmedPassword')='Confirm Password'
+  input(type='password', name='confirmedPassword')
+  input(type='submit', value='Create Interesting User')
+  
